@@ -1,60 +1,19 @@
 import { Injectable } from '@nestjs/common';
-import { ProductsDto } from 'src/common/dtos/products.dto';
 import { ProductQuery } from 'src/common/interfaces/product-query.interface';
-import { ProductDto } from 'src/common/dtos/product.dto';
 import { ProductsQuery } from 'src/common/interfaces/products-query.interface';
+import { OclClientService } from 'src/ocl-client/ocl-client.service';
+import { OclConcept } from 'src/common/interfaces/ocl-concept.interface';
+import { ListOfOclConcepts } from 'src/common/interfaces/list-of-ocl-concepts.interface';
 
 @Injectable()
 export class ProductsService {
-  constructor(private readonly client: OclClient) { }
+  constructor(private readonly service: OclClientService) { }
 
-  findAll(filters: ProductsQuery): Promise<ProductsDto> {
-    return this.client.findAll(filters);
+  findAll(filters: ProductsQuery): Promise<ListOfOclConcepts> {
+    return this.service.getProducts(filters.page, filters.pageSize);
   }
 
-  findOne(id: string, filters: ProductQuery): Promise<ProductDto> {
-    return this.client.findOne(id, filters);
+  findOne(id: string, filters: ProductQuery): Promise<OclConcept> {
+    return this.service.getProductByCode(id, filters.system, filters.fhir);
   }
 }
-
-@Injectable()
-export class OclClient {
-  findAll(filters: ProductsQuery): Promise<ProductsDto> {
-    return Promise.resolve({
-      page: 1,
-      pageSize: 10,
-      totalPages: 20,
-      products: [
-        {
-          productCode: 'XXXX',
-          productName: 'XXXX',
-          mappings: [
-            {
-              systemName: 'XXXX',
-              systemProductCode: 'XXXX',
-              productName: 'XXXX'
-            }
-          ],
-          dateCreated: new Date(),
-          lastUpdated: new Date()
-        }
-      ]
-    });
-  }
-
-  findOne(id: string, filters: ProductQuery): Promise<ProductDto> {
-    return Promise.resolve({
-      productCode: 'XXXX',
-      productName: 'XXXX',
-      mappings: [
-        {
-          systemName: 'XXXX',
-          systemProductCode: 'XXXX',
-          productName: 'XXXX'
-        }
-      ],
-      dateCreated: new Date(),
-      lastUpdated: new Date()
-    })
-  }
-} 
