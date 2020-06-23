@@ -2,8 +2,8 @@ import { Controller, Get, Param, Query, UseInterceptors, CacheInterceptor } from
 import { ProductQuery } from 'src/common/interfaces/product-query.interface';
 import { ProductsService } from './products.service';
 import { ProductsQuery } from 'src/common/interfaces/products-query.interface';
-import { OclConcept } from 'src/common/interfaces/ocl-concept.interface';
-import { ListOfOclConcepts } from 'src/common/interfaces/list-of-ocl-concepts.interface';
+import { ProductDto } from 'src/common/dtos/product.dto';
+import { ProductsDto } from 'src/common/dtos/products.dto';
 
 @Controller('products')
 @UseInterceptors(CacheInterceptor)
@@ -11,12 +11,12 @@ export class ProductsController {
   constructor(private readonly service: ProductsService) { }
 
   @Get()
-  findAll(@Query() query: ProductsQuery): Promise<ListOfOclConcepts> {
-    return this.service.findAll(query);
+  async findAll(@Query() query: ProductsQuery): Promise<ProductsDto> {
+    return await this.service.findAll(query);
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string, @Query() query?: ProductQuery): Promise<OclConcept> {
-    return this.service.findOne(id, query);
+  async findOne(@Param('id') id: string, @Query() query?: ProductQuery): Promise<ProductDto> {
+    return await this.service.findOne(id, query);
   }
 }
