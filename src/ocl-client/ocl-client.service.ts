@@ -14,11 +14,10 @@ export class OclClientService {
         // Yet to implement Master Product List so if the system is DHIS2 It will just return it a regular.
         //TODO: Case Where Product does not exist for requested system.
         return this.oclClient.getProductFromOcl(productCode, system, fhir);
-
     }
 
-    getProducts(page = 1): Promise<ListOfOclConcepts>{
-        return this.oclClient.getAllProductsFromOcl(page);
+    getProducts(page = 1, pageSize = 10): Promise<ListOfOclConcepts>{
+        return this.oclClient.getAllProductsFromOcl(page, pageSize);
     }
 
 
