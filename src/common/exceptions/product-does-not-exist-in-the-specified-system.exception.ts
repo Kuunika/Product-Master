@@ -1,7 +1,5 @@
-import { HttpException, HttpStatus } from "@nestjs/common";
-
-export class ProductDoesNotExistInTheSpecifiedSystemException extends HttpException {
+export class ProductNotFoundInSystemException extends Error {
     constructor() {
-        super('The Product Specified Does Not Exist In The Given System', HttpStatus.NOT_FOUND);
-    }    
+        super('The product specified does not exist in the given system.');
+    }
 }
