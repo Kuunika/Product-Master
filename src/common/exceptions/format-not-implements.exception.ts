@@ -1,7 +1,5 @@
-import { HttpException, HttpStatus } from "@nestjs/common";
-
-export class FormatNotImplementedException extends HttpException {
-    constructor() {
-      super('Selected Format Is Not Yet Implemented, Please Try Again Later', HttpStatus.NOT_IMPLEMENTED);
-    }
+export class FormatNotImplementedException extends Error {
+  constructor() {
+    super('Selected format is not yet implemented. Please try again later.');
   }
+}
