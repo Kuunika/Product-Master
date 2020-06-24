@@ -18,7 +18,7 @@ export class ProductsService {
   }
 
   async findOne(id: string, filters: ProductQuery): Promise<ProductDto> {
-    const product = await this.service.getProductByCode(id, filters.system, filters.fhir);
+    const product = await this.service.getProductByCode(id, filters.system);
     return this.toProduct(product);
   }
 
