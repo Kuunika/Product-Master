@@ -4,7 +4,7 @@ import { ProductsQuery } from 'src/common/interfaces/products-query.interface';
 import { OclClientService } from 'src/ocl-client/ocl-client.service';
 import { ProductDto } from 'src/common/dtos/product.dto';
 import { ProductsDto } from 'src/common/dtos/products.dto';
-import { toProduct, toOclProducts } from '../utils/formatters';
+import { toProduct, toOclProducts } from '../common/utils/formatters';
 
 @Injectable()
 export class ProductsService {
