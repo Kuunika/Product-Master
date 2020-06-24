@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { OclClientService } from './ocl-client.service';
-import { ProductDoesNotExistInTheSpecifiedSystemException } from '../common/exceptions/product-does-not-exist-in-the-specified-system.exception';
+// import { ProductNotFoundInSystemException } from '../common/exceptions/product-does-not-exist-in-the-specified-system.exception';
 
 describe('OclClientService', () => {
   let service: OclClientService;
