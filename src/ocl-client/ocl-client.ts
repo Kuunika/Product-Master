@@ -9,7 +9,7 @@ import { OclClientException } from 'src/common/exceptions/ocl-client.exception';
 
 export class OclClient {
     private axiosClient: axios.AxiosInstance;
-    private masterRepo = process.env.MASTER_REPO;
+    private masterRepo = process.env.OCL_MASTER_REPO;
 
     constructor() {
         this.axiosClient = axios.default.create(apiConfig);
