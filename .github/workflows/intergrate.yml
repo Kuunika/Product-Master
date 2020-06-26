@@ -21,10 +21,10 @@ jobs:
           DOCKER_USER: ${{ secrets.REGISTRY_USERNAME }}   
           DOCKER_PASSWORD: ${{ secrets.REGISTRY_PASSWORD  }}
         run: docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-        
+
       - name: Building and Deploying Docker Image
         run: /
-          docker image --tag product-master .
+          docker build --tag product-master .
           IMAGE_ID=$(docker images -q product-master)
           docker tag $IMAGE_ID kuunika/product-master
           docker push kuunika/product-master
