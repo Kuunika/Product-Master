@@ -43,7 +43,8 @@ export class OclClient {
 
     async getAllProductsFromOcl(pageNumber: number, pageSize: number): Promise<ListOfOclConcepts> {
         try {
-            const productsFromOcl = await this.axiosClient.get<OclConcept[]>(`sources/${this.masterRepo}/concepts?limit=${pageSize}&page=${pageNumber}`);
+            const productsFromOcl = await this.axiosClient.get<OclConcept[]>(`sources/${this.masterRepo}/concepts?limit=${pageSize}&page=${pageNumber}&includeMappings=true`);
+            
             return {
                 concepts: productsFromOcl.data,
                 currentPage: pageNumber,

@@ -8,7 +8,7 @@ export function toProduct(concept: OclConcept): ProductDto {
     return {
         productCode: concept.uuid,
         productName: concept.display_name,
-        mappings: concept.mappings.map(val => toSystemProduct(val)),
+        mappings:    concept.mappings && concept.mappings.map(val => toSystemProduct(val)),
         dateCreated: new Date(concept.created_on),
         lastUpdated: new Date(concept.updated_on)
     };
