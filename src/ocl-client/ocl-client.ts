@@ -2,10 +2,10 @@ import * as axios from 'axios';
 import { OclConcept } from '../common/interfaces/ocl-concept.interface';
 import { apiConfig } from './api.config';
 import { ListOfOclConcepts } from '../common/interfaces/list-of-ocl-concepts.interface';
-import { ProductNotFoundException } from 'src/common/exceptions/product-code-does-not-exist.exception';
-import { SystemNotFoundException } from 'src/common/exceptions/system-does-not-exist.exception';
-import { ProductNotFoundInSystemException } from 'src/common/exceptions/product-does-not-exist-in-the-specified-system.exception';
-import { OclClientException } from 'src/common/exceptions/ocl-client.exception';
+import { ProductNotFoundException } from '../common/exceptions/product-code-does-not-exist.exception';
+import { SystemNotFoundException } from '../common/exceptions/system-does-not-exist.exception';
+import { ProductNotFoundInSystemException } from '../common/exceptions/product-does-not-exist-in-the-specified-system.exception';
+import { OclClientException } from '../common/exceptions/ocl-client.exception';
 
 export class OclClient {
     private axiosClient: axios.AxiosInstance;

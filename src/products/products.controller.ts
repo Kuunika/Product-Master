@@ -1,9 +1,9 @@
 import { Controller, Get, Param, Query, UseInterceptors, CacheInterceptor, BadGatewayException, NotFoundException } from '@nestjs/common';
-import { ProductQuery } from 'src/common/interfaces/product-query.interface';
+import { ProductQuery } from '../common/interfaces/product-query.interface';
 import { ProductsService } from './products.service';
-import { ProductsQuery } from 'src/common/interfaces/products-query.interface';
-import { ProductDto } from 'src/common/dtos/product.dto';
-import { ProductsDto } from 'src/common/dtos/products.dto';
+import { ProductsQuery } from '../common/interfaces/products-query.interface';
+import { ProductDto } from '../common/dtos/product.dto';
+import { ProductsDto } from '../common/dtos/products.dto';
 
 @Controller('products')
 @UseInterceptors(CacheInterceptor)
