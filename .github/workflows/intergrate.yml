@@ -23,8 +23,8 @@ jobs:
         run: docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
 
       - name: Building and Deploying Docker Image
-        run: /
-          docker build --tag product-master .
+        run: |
+          docker image build --tag product-master .
           IMAGE_ID=$(docker images -q product-master)
           docker tag $IMAGE_ID kuunika/product-master
           docker push kuunika/product-master
