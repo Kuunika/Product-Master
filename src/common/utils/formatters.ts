@@ -1,14 +1,14 @@
-import { ListOfOclConcepts } from "src/common/interfaces/list-of-ocl-concepts.interface";
-import { ProductsDto } from "src/common/dtos/products.dto";
-import { SystemProductDto } from "src/common/dtos/system-product.dto";
-import { OclConcept, Mapping } from "src/common/interfaces/ocl-concept.interface";
-import { ProductDto } from "src/common/dtos/product.dto";
+import { ListOfOclConcepts } from "../interfaces/list-of-ocl-concepts.interface";
+import { ProductsDto } from "../dtos/products.dto";
+import { SystemProductDto } from "../dtos/system-product.dto";
+import { OclConcept, Mapping } from "../interfaces/ocl-concept.interface";
+import { ProductDto } from "../dtos/product.dto";
 
 export function toProduct(concept: OclConcept): ProductDto {
     return {
         productCode: concept.uuid,
         productName: concept.display_name,
-        mappings: concept.mappings.map(val => toSystemProduct(val)),
+        mappings:    concept.mappings && concept.mappings.map(val => toSystemProduct(val)),
         dateCreated: new Date(concept.created_on),
         lastUpdated: new Date(concept.updated_on)
     };
