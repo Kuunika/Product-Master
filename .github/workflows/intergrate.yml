@@ -9,7 +9,6 @@ jobs:
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
-      - name: Setting Up Environment
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
@@ -22,8 +21,9 @@ jobs:
           DOCKER_USER: ${{ secrets.REGISTRY_USERNAME }}   
           DOCKER_PASSWORD: ${{ secrets.REGISTRY_PASSWORD  }}
         run: docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+        
       - name: Building and Deploying Docker Image
-      - run: /
+        run: /
           docker image --tag product-master .
           IMAGE_ID=$(docker images -q product-master)
           docker tag $IMAGE_ID kuunika/product-master
