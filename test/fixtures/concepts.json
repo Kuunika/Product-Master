@@ -1,0 +1,205 @@
+{
+    "totalNumberOfConcepts": 2,
+    "currentPage": 1,
+    "totalNumberOfPages": 1,
+    "concepts": [
+        {
+            "type": "XXXX",
+            "uuid": "XXXX1",
+            "id": "XXXX1",
+            "external_id": "XXXX",
+            "concept_class": "XXXX",
+            "datatype": "XXXX",
+            "display_name": "XXXX",
+            "display_locale": "XXXX",
+            "names": [
+                {
+                    "uuid": "XXXX4",
+                    "external_id": "XXXX4",
+                    "name": "XXXX",
+                    "locale": "XXXX",
+                    "locale_preferred": true,
+                    "name_type": "XXXX",
+                    "type": "XXXX"
+                },
+                {
+                    "uuid": "XXXX4",
+                    "external_id": "XXXX4",
+                    "name": "XXXX",
+                    "locale": "XXXX",
+                    "locale_preferred": true,
+                    "name_type": "XXXX",
+                    "type": "XXXX"
+                }
+            ],
+            "descriptions": [
+                {
+                    "uuid": "XXXX2",
+                    "external_id": "XXXX2",
+                    "description": "XXXX",
+                    "locale": "XXXX",
+                    "locale_preferred": true,
+                    "description_type": "XXXX",
+                    "type": "XXXX"
+                },
+                {
+                    "uuid": "XXXX2",
+                    "external_id": "XXXX2",
+                    "description": "XXXX",
+                    "locale": "XXXX",
+                    "locale_preferred": true,
+                    "description_type": "XXXX",
+                    "type": "XXXX"
+                }
+            ],
+            "retired": false,
+            "source": "XXXX",
+            "source_url": "XXXX",
+            "owner": "XXXX",
+            "owner_type": "XXXX",
+            "owner_url": "XXXX",
+            "version": "XXXX",
+            "created_on": "XXXX",
+            "updated_on": "XXXX",
+            "version_created_on": "XXXX",
+            "version_created_by": "XXXX",
+            "extras": {
+                "Attribute ID": "XXXX",
+                "Category ID": "XXXX"
+            },
+            "mappings": [
+                {
+                    "external_id": "XXXX6",
+                    "retired": false,
+                    "map_type": "XXXX",
+                    "source": "XXXX",
+                    "owner": "XXXX",
+                    "owner_type": "XXXX",
+                    "from_concept_url": "XXXX",
+                    "to_concept_url": "XXXX",
+                    "to_source_url": "XXXX",
+                    "to_concept_code": "XXXX",
+                    "to_concept_name": "XXXX",
+                    "url": "XXXX"
+                },
+                {
+                    "external_id": "XXXX7",
+                    "retired": false,
+                    "map_type": "XXXX",
+                    "source": "XXXX",
+                    "owner": "XXXX",
+                    "owner_type": "XXXX",
+                    "from_concept_url": "XXXX",
+                    "to_concept_url": "XXXX",
+                    "to_source_url": "XXXX",
+                    "to_concept_code": "XXXX",
+                    "to_concept_name": "XXXX",
+                    "url": "XXXX"
+                }
+            ],
+            "is_latest_version": true,
+            "locale": "XXXX",
+            "version_url": "XXXX",
+            "url": "XXXX"
+        },
+        {
+            "type": "XXXX",
+            "uuid": "XXXX3",
+            "id": "XXXX3",
+            "external_id": "XXXX",
+            "concept_class": "XXXX",
+            "datatype": "XXXX",
+            "display_name": "XXXX",
+            "display_locale": "XXXX",
+            "names": [
+                {
+                    "uuid": "XXXX7",
+                    "external_id": "XXXX7",
+                    "name": "XXXX",
+                    "locale": "XXXX",
+                    "locale_preferred": true,
+                    "name_type": "XXXX",
+                    "type": "XXXX"
+                },
+                {
+                    "uuid": "XXXX10",
+                    "external_id": "XXXX10",
+                    "name": "XXXX",
+                    "locale": "XXXX",
+                    "locale_preferred": true,
+                    "name_type": "XXXX",
+                    "type": "XXXX"
+                }
+            ],
+            "descriptions": [
+                {
+                    "uuid": "XXXX11",
+                    "external_id": "XXXX11",
+                    "description": "XXXX",
+                    "locale": "XXXX",
+                    "locale_preferred": true,
+                    "description_type": "XXXX",
+                    "type": "XXXX"
+                },
+                {
+                    "uuid": "XXXX23",
+                    "external_id": "XXXX23",
+                    "description": "XXXX",
+                    "locale": "XXXX",
+                    "locale_preferred": true,
+                    "description_type": "XXXX",
+                    "type": "XXXX"
+                }
+            ],
+            "retired": false,
+            "source": "XXXX",
+            "source_url": "XXXX",
+            "owner": "XXXX",
+            "owner_type": "XXXX",
+            "owner_url": "XXXX",
+            "version": "XXXX",
+            "created_on": "XXXX",
+            "updated_on": "XXXX",
+            "version_created_on": "XXXX",
+            "version_created_by": "XXXX",
+            "extras": {
+                "Attribute ID": "XXXX",
+                "Category ID": "XXXX"
+            },
+            "mappings": [
+                {
+                    "external_id": "XXXX61",
+                    "retired": false,
+                    "map_type": "XXXX",
+                    "source": "XXXX",
+                    "owner": "XXXX",
+                    "owner_type": "XXXX",
+                    "from_concept_url": "XXXX",
+                    "to_concept_url": "XXXX",
+                    "to_source_url": "XXXX",
+                    "to_concept_code": "XXXX",
+                    "to_concept_name": "XXXX",
+                    "url": "XXXX"
+                },
+                {
+                    "external_id": "XXXX71",
+                    "retired": false,
+                    "map_type": "XXXX",
+                    "source": "XXXX",
+                    "owner": "XXXX",
+                    "owner_type": "XXXX",
+                    "from_concept_url": "XXXX",
+                    "to_concept_url": "XXXX",
+                    "to_source_url": "XXXX",
+                    "to_concept_code": "XXXX",
+                    "to_concept_name": "XXXX",
+                    "url": "XXXX"
+                }
+            ],
+            "is_latest_version": true,
+            "locale": "XXXX",
+            "version_url": "XXXX",
+            "url": "XXXX"
+        }
+    ]
+}
