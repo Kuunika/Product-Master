@@ -6,9 +6,9 @@ import { ProductDto } from "../dtos/product.dto";
 
 export function toProduct(concept: OclConcept): ProductDto {
     return {
-        productCode: concept.uuid,
+        productCode: concept.id,
         productName: concept.display_name,
-        mappings:    concept.mappings && concept.mappings.map(val => toSystemProduct(val)),
+        mappings: concept.mappings ? concept.mappings.map(val => toSystemProduct(val)) : [],
         dateCreated: new Date(concept.created_on),
         lastUpdated: new Date(concept.updated_on)
     };
@@ -25,8 +25,8 @@ export function toOclProducts(concepts: ListOfOclConcepts): ProductsDto {
 
 function toSystemProduct(map: Mapping): SystemProductDto {
     return {
-        systemName: map.source,
-        systemProductCode: map.external_id,
+        systemName: map.owner,
+        systemProductCode: map.to_concept_code,
         productName: map.to_concept_name
     }
 }
