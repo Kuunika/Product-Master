@@ -1,7 +1,7 @@
 import { Module, CacheModule } from '@nestjs/common';
 import { ProductsController } from './products.controller';
 import { ProductsService } from './products.service';
-import { OclClient } from 'src/lib/ocl/client';
+import { OclClient } from '../lib/ocl/client';
 
 @Module({
   imports: [CacheModule.register({
