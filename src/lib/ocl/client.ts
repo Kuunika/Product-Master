@@ -5,7 +5,7 @@ import { apiConfig } from './config';
 import { ListOfOclConcepts } from '../../common/interfaces/list-of-ocl-concepts.interface';
 import { ProductNotFoundException } from '../../common/exceptions/product-code-does-not-exist.exception';
 import { OclClientException } from '../../common/exceptions/ocl-client.exception';
-import { ProductNotFoundInSystemException } from 'src/common/exceptions/product-does-not-exist-in-the-specified-system.exception';
+import { ProductNotFoundInSystemException } from '../../common/exceptions/product-does-not-exist-in-the-specified-system.exception';
 
 @Injectable()
 export class OclClient {
