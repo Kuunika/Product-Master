@@ -1,5 +1,5 @@
 export class ProductNotFoundInSystemException extends Error {
     constructor() {
-        super('The product specified does not exist in the given system.');
+        super('Product was not found in the given system.');
     }
 }

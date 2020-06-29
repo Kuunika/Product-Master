@@ -1,23 +1,40 @@
-import { Test, TestingModule } from '@nestjs/testing';
+import { Test } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
-import { AppModule } from './../src/app.module';
+import { ProductsService } from '../src/products/products.service';
+import { ProductsModule } from '../src/products/products.module';
 
-describe('ProductsController (e2e)', () => {
+describe('Products', () => {
   let app: INestApplication;
+  const productService = { findAll: () => ['test'], findOne: () => ['test'] };
 
-  beforeEach(async () => {
-    const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [AppModule],
-    }).compile();
+  beforeAll(async () => {
+    const moduleRef = await Test.createTestingModule({
+      imports: [ProductsModule],
+    })
+      .overrideProvider(ProductsService)
+      .useValue(productService)
+      .compile();
 
-    app = moduleFixture.createNestApplication();
+    app = moduleRef.createNestApplication();
     await app.init();
   });
 
-  it('/ (GET)', () => {
+  it(`/GET products`, () => {
     return request(app.getHttpServer())
-      .get('/products?page=1&pageSize=15')
+      .get('/products')
       .expect(200)
+      .expect(productService.findAll());
+  });
+
+  it(`/GET a product`, () => {
+    return request(app.getHttpServer())
+      .get('/products/shay871671')
+      .expect(200)
+      .expect(productService.findOne());
+  });
+
+  afterAll(async () => {
+    await app.close();
   });
 });
