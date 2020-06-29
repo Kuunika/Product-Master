@@ -1,0 +1,31 @@
+name: Kuunika Product Master
+
+on:
+  pull_request:
+    types: [closed]
+    branches: [master]
+jobs:
+  build_pull_request:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - name: Building Project
+        run: npm install && npm run build
+
+      - name: Docker Login
+        env:
+          DOCKER_USER: ${{ secrets.REGISTRY_USERNAME }}   
+          DOCKER_PASSWORD: ${{ secrets.REGISTRY_PASSWORD  }}
+        run: docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+
+      - name: Building and Deploying Docker Image
+        run: |
+          docker image build --tag product-master .
+          IMAGE_ID=$(docker images -q product-master)
+          docker tag $IMAGE_ID kuunika/product-master
+          docker push kuunika/product-master
+
