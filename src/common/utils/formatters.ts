@@ -25,8 +25,12 @@ export function toOclProducts(concepts: ListOfOclConcepts): ProductsDto {
 
 function toSystemProduct(map: Mapping): SystemProductDto {
     return {
-        systemName: map.owner,
+        systemName: getSystemName(map),
         systemProductCode: map.to_concept_code,
         productName: map.to_concept_name
     }
+}
+
+function getSystemName(map: Mapping) {
+    return map.to_concept_url.split('/')[4];
 }
