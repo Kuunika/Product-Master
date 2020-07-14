@@ -34,6 +34,7 @@ export class OclClient {
     async getProducts(pageNumber = 1, pageSize = 10): Promise<ListOfOclConcepts> {
         try {
             const productsFromOcl = await this.axiosClient.get<OclConcept[]>(`/sources/${this.masterRepo}/concepts/?limit=${pageSize}&page=${pageNumber}&includeMappings=true`);
+            
             return {
                 concepts: productsFromOcl.data,
                 currentPage: pageNumber,
@@ -41,6 +42,7 @@ export class OclClient {
                 totalNumberOfPages: Math.ceil(productsFromOcl.headers.num_found / pageSize),
             }
         } catch (error) {
+            
             throw new OclClientException();
         }
     }
