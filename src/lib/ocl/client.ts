@@ -5,7 +5,6 @@ import { apiConfig } from './config';
 import { ListOfOclConcepts } from '../../common/interfaces/list-of-ocl-concepts.interface';
 import { ProductNotFoundException } from '../../common/exceptions/product-code-does-not-exist.exception';
 import { OclClientException } from '../../common/exceptions/ocl-client.exception';
-import { ProductNotFoundInSystemException } from '../../common/exceptions/product-does-not-exist-in-the-specified-system.exception';
 
 @Injectable()
 export class OclClient {
@@ -17,12 +16,17 @@ export class OclClient {
     }
 
     async getProductByCode(productCode: string, system?: string): Promise<OclConcept> {
+        let response: axios.AxiosResponse;
         try {
             const url = this.productUrl(productCode, system);
-            return (await this.axiosClient.get<OclConcept>(url, apiConfig)).data;
+            response = await this.axiosClient.get<OclConcept>(url, apiConfig)
+            return response.data;
         } catch (error) {
-            if (system) throw new ProductNotFoundInSystemException();
-            else throw new ProductNotFoundException();
+            if (response.status === 404) {
+                throw new ProductNotFoundException();
+            }
+            
+            throw new OclClientException();
         }
     }
 
@@ -42,7 +46,6 @@ export class OclClient {
                 totalNumberOfPages: Math.ceil(productsFromOcl.headers.num_found / pageSize),
             }
         } catch (error) {
-            
             throw new OclClientException();
         }
     }
