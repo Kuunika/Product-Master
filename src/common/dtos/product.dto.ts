@@ -1,6 +1,6 @@
 import { SystemProductDto } from "./system-product.dto";
 
-export interface ProductDto {
+export class ProductDto {
     productCode: string;
     productName: string;
     mappings: SystemProductDto[];
