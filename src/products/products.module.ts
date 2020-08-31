@@ -1,13 +1,9 @@
-import { Module, CacheModule } from '@nestjs/common';
-import { ProductsController } from './products.controller';
+import { Module } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { OclClient } from '../lib/ocl/client';
 
 @Module({
-  imports: [CacheModule.register({
-    ttl:43_200
-  })],
-  controllers: [ProductsController],
-  providers: [ProductsService, OclClient]
+  providers: [ProductsService, OclClient],
+  exports: [ProductsService]
 })
 export class ProductsModule { }
