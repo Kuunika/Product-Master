@@ -2,11 +2,15 @@ import { ProductDto } from 'src/common/dtos/product.dto';
 import { SystemProductDto } from 'src/common/dtos/system-product.dto';
 import { R4 } from '@ahryman40k/ts-fhir-types';
 
-const _systems = ['OpenLMIS', 'DHIS2'];
+export const getSystems = (products: ProductDto[]): Array<any> => {
+  const mappings = products.map(product => product.mappings);
+  const m = [].concat.apply([], mappings);
+  return [...new Set(m.map(m => m.systemName))];
+};
 
 export const formatProductsToFhir = (
   products: ProductDto[],
-  systems = _systems,
+  systems,
 ): R4.IConceptMap => {
   const group: Array<R4.IConceptMap_Group> = [];
   systems.forEach(target => {
