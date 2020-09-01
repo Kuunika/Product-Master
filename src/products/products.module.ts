@@ -4,10 +4,13 @@ import { ProductsService } from './products.service';
 import { OclClient } from '../lib/ocl/client';
 
 @Module({
-  imports: [CacheModule.register({
-    ttl:43_200
-  })],
+  imports: [
+    CacheModule.register({
+      ttl: 43_200,
+    }),
+  ],
   controllers: [ProductsController],
-  providers: [ProductsService, OclClient]
+  providers: [ProductsService, OclClient],
+  exports: [ProductsService],
 })
-export class ProductsModule { }
+export class ProductsModule {}

@@ -11,9 +11,10 @@ import { ProductsService } from 'src/products/products.service';
 import { ProductsQuery } from 'src/common/interfaces/products-query.interface';
 import {
   formatProductsToFhir,
-  getSystems,
+  getProductSystems,
+  getProductsSystems,
+  formatProductToFhir,
 } from 'src/common/utils/fhir/formatter';
-import { ProductDto } from 'src/common/dtos/product.dto';
 
 @Controller('fhir')
 export class FhirProductsController {
@@ -24,7 +25,7 @@ export class FhirProductsController {
     try {
       const { products } = await this.service.findAll(query);
 
-      return formatProductsToFhir(products, getSystems(products));
+      return formatProductsToFhir(products, getProductsSystems(products));
     } catch (error) {
       throw new BadGatewayException(error.message);
     }
@@ -34,8 +35,7 @@ export class FhirProductsController {
   async findOne(@Param('id') id: string): Promise<R4.IConceptMap> {
     try {
       const product = await this.service.findOne(id, {});
-      const products = [product] as ProductDto[];
-      return formatProductsToFhir(products, getSystems(products));
+      return formatProductToFhir(product, getProductSystems(product));
     } catch (error) {
       throw new NotFoundException(error.message);
     }

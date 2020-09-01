@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { FhirProductsController } from './fhir-products.controller';
-import { ProductsService } from 'src/products/products.service';
-import { OclClient } from 'src/lib/ocl/client';
+
+import { ProductsModule } from 'src/products/products.module';
 
 @Module({
   controllers: [FhirProductsController],
-  providers: [ProductsService, OclClient],
+  imports: [ProductsModule],
 })
 export class FhirProductsModule {}
