@@ -12,16 +12,14 @@ export const getProductsSystems = (products: ProductDto[]): Array<string> => {
 };
 
 export const getProductSystems = (product: ProductDto): Array<string> => {
-  const m = [].concat.apply([], product.mappings);
-
-  return [...new Set(m.map(m => m.systemName))] as Array<string>;
+  return [...new Set(product.mappings.map(m => m.systemName))] as Array<string>;
 };
 
 export const formatProductsToFhir = (
   products: ProductDto[],
-  systems,
+  systems: Array<string>,
 ): R4.IConceptMap => {
-  let group: Array<R4.IConceptMap_Group> = [];
+  const group: Array<R4.IConceptMap_Group> = [];
   systems.forEach(target => {
     group.push({
       target,
@@ -38,7 +36,7 @@ export const formatProductsToFhir = (
 
 export const formatProductToFhir = (
   product: ProductDto,
-  systems,
+  systems: Array<string>,
 ): R4.IConceptMap => {
   const group: Array<R4.IConceptMap_Group> = [];
   systems.forEach(target => {

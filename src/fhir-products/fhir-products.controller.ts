@@ -15,12 +15,24 @@ import {
   getProductsSystems,
   formatProductToFhir,
 } from 'src/common/utils/fhir/formatter';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiOkResponse,
+  ApiBadGatewayResponse,
+  ApiNotFoundResponse,
+} from '@nestjs/swagger';
+import { FhirProductResponse } from 'src/common/responses/fhir-product.response.dto';
 
 @Controller('fhir')
+@ApiTags('fhir products')
 export class FhirProductsController {
   constructor(private service: ProductsService) {}
 
   @Get()
+  @ApiOkResponse({ type: FhirProductResponse })
+  @ApiBadGatewayResponse()
+  @ApiOperation({ summary: 'list fhir products' })
   async getFhir(@Query() query: ProductsQuery): Promise<R4.IConceptMap> {
     try {
       const { products } = await this.service.findAll(query);
@@ -32,6 +44,10 @@ export class FhirProductsController {
   }
 
   @Get(':id')
+  @ApiOkResponse({ type: FhirProductResponse })
+  @ApiNotFoundResponse()
+  @ApiBadGatewayResponse()
+  @ApiOperation({ summary: 'get fhir product' })
   async findOne(@Param('id') id: string): Promise<R4.IConceptMap> {
     try {
       const product = await this.service.findOne(id, {});
