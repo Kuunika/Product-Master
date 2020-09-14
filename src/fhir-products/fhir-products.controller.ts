@@ -22,7 +22,7 @@ import {
   ApiBadGatewayResponse,
   ApiNotFoundResponse,
 } from '@nestjs/swagger';
-import { FhirProductResponse } from 'src/common/responses/fhir-product.response.dto';
+import { FHIRConceptMap } from 'src/common/responses/product.response.dto';
 
 @Controller('fhir')
 @ApiTags('fhir products')
@@ -30,7 +30,7 @@ export class FhirProductsController {
   constructor(private service: ProductsService) {}
 
   @Get()
-  @ApiOkResponse({ type: FhirProductResponse })
+  @ApiOkResponse({ type: FHIRConceptMap })
   @ApiBadGatewayResponse()
   @ApiOperation({ summary: 'list fhir products' })
   async getFhir(@Query() query: ProductsQuery): Promise<R4.IConceptMap> {
@@ -44,7 +44,7 @@ export class FhirProductsController {
   }
 
   @Get(':id')
-  @ApiOkResponse({ type: FhirProductResponse })
+  @ApiOkResponse({ type: FHIRConceptMap })
   @ApiNotFoundResponse()
   @ApiBadGatewayResponse()
   @ApiOperation({ summary: 'get fhir product' })

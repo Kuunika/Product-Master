@@ -2,6 +2,17 @@ import { ProductDto } from 'src/common/dtos/product.dto';
 import { SystemProductDto } from 'src/common/dtos/system-product.dto';
 import { R4 } from '@ahryman40k/ts-fhir-types';
 
+const conceptMapMeta: R4.IConceptMap = {
+  resourceType: 'ConceptMap',
+  status: R4.ConceptMapStatusKind._active,
+  name: 'product master',
+  title: 'product master mapping',
+  version: '1',
+  purpose: 'mappings to target systems',
+  publisher: 'kuunika data for action',
+  sourceUri: 'product master',
+};
+
 export const getProductsSystems = (products: ProductDto[]): Array<string> => {
   let sys = new Set();
   products.forEach(prod => {
@@ -28,8 +39,7 @@ export const formatProductsToFhir = (
   });
 
   return {
-    resourceType: 'ConceptMap',
-    status: R4.ConceptMapStatusKind._active,
+    ...conceptMapMeta,
     group,
   };
 };
@@ -55,8 +65,7 @@ export const formatProductToFhir = (
   });
 
   return {
-    resourceType: 'ConceptMap',
-    status: R4.ConceptMapStatusKind._active,
+    ...conceptMapMeta,
     group,
   };
 };
