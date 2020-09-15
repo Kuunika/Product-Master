@@ -8,6 +8,10 @@ export const getProductsSystems = (products: ProductDto[]): Array<string> => {
     sys = new Set([...sys, ...getProductSystems(prod)]);
   });
 
+  if (sys.size === 0) {
+    throw new Error('no systems in payload');
+  }
+
   return [...sys] as Array<string>;
 };
 
@@ -26,6 +30,8 @@ export const formatProductsToFhir = (
       element: products.map(prod => getElement(prod, target)),
     });
   });
+
+  if (!products.length) return null;
 
   return {
     resourceType: 'ConceptMap',
@@ -54,6 +60,8 @@ export const formatProductToFhir = (
     });
   });
 
+  if (!Object.keys(product).length) return null;
+
   return {
     resourceType: 'ConceptMap',
     status: R4.ConceptMapStatusKind._active,
@@ -65,6 +73,10 @@ export const getElement = (
   product: ProductDto,
   system: string,
 ): R4.IConceptMap_Element => {
+  if (!product.mappings || product.mappings.length == 0) {
+    throw new Error('No Mappings');
+  }
+
   return {
     code: product.productCode,
     display: product.productName,

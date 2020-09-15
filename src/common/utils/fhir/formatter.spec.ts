@@ -17,11 +17,18 @@ const productDto: ProductDto = {
 
 describe('fhir formatter', () => {
   describe('getProductsSystems', () => {
-    const getElement = jest.spyOn(formatterModule, 'getProductSystems');
     it('should retrieve systems from product dto', () => {
-      const result = formatterModule.getProductSystems(productDto);
+      const getProductSystems = jest.spyOn(
+        formatterModule,
+        'getProductSystems',
+      );
+      const result = formatterModule.getProductsSystems([productDto]);
       expect(result).toEqual(expect.arrayContaining(['a', 'b']));
-      expect(getElement).toHaveBeenCalled();
+      expect(getProductSystems).toHaveBeenCalled();
+    });
+
+    it('should throw if there are no systems', () => {
+      expect(() => formatterModule.getProductsSystems([])).toThrow();
     });
   });
 
@@ -37,6 +44,10 @@ describe('fhir formatter', () => {
           { code: 'code-a', display: 'prod-a', equivalence: 'equal' },
         ]),
       );
+    });
+
+    it('should throw if product does not have mappings', () => {
+      expect(() => formatterModule.getElement({} as ProductDto, 'a')).toThrow();
     });
   });
 
@@ -54,6 +65,11 @@ describe('fhir formatter', () => {
         display: 'prod-b',
         equivalence: 'equal',
       });
+    });
+
+    it('should return empty array if mappings are empty', () => {
+      const result = formatterModule.formatTargets([]);
+      expect(result.length).toBe(0);
     });
   });
 
@@ -78,6 +94,11 @@ describe('fhir formatter', () => {
       expect(result.group[0].target).toBe('a');
       expect(result.group[1].target).toBe('b');
     });
+
+    it('should return null if product is empty', () => {
+      const result = formatterModule.formatProductToFhir({} as ProductDto, []);
+      expect(result).toBeNull();
+    });
   });
 
   describe('formatProductsToFhir', () => {
@@ -91,6 +112,11 @@ describe('fhir formatter', () => {
       expect(getElement).toHaveBeenCalled();
       expect(result.group[0].target).toBe('a');
       expect(result.group[1].target).toBe('b');
+    });
+
+    it('should return null if products is empty', () => {
+      const result = formatterModule.formatProductsToFhir([], []);
+      expect(result).toBeNull();
     });
   });
 });
