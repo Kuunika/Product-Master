@@ -2,6 +2,17 @@ import { ProductDto } from 'src/common/dtos/product.dto';
 import { SystemProductDto } from 'src/common/dtos/system-product.dto';
 import { R4 } from '@ahryman40k/ts-fhir-types';
 
+const conceptMapMeta: R4.IConceptMap = {
+  resourceType: 'ConceptMap',
+  status: R4.ConceptMapStatusKind._active,
+  name: 'product master',
+  title: 'product master mapping',
+  version: '1',
+  purpose: 'mappings to target systems',
+  publisher: 'kuunika data for action',
+  sourceUri: 'product master',
+};
+
 export const getProductsSystems = (products: ProductDto[]): Array<string> => {
   let sys = new Set();
   products.forEach(prod => {
@@ -12,16 +23,14 @@ export const getProductsSystems = (products: ProductDto[]): Array<string> => {
 };
 
 export const getProductSystems = (product: ProductDto): Array<string> => {
-  const m = [].concat.apply([], product.mappings);
-
-  return [...new Set(m.map(m => m.systemName))] as Array<string>;
+  return [...new Set(product.mappings.map(m => m.systemName))] as Array<string>;
 };
 
 export const formatProductsToFhir = (
   products: ProductDto[],
-  systems,
+  systems: Array<string>,
 ): R4.IConceptMap => {
-  let group: Array<R4.IConceptMap_Group> = [];
+  const group: Array<R4.IConceptMap_Group> = [];
   systems.forEach(target => {
     group.push({
       target,
@@ -30,15 +39,14 @@ export const formatProductsToFhir = (
   });
 
   return {
-    resourceType: 'ConceptMap',
-    status: R4.ConceptMapStatusKind._active,
+    ...conceptMapMeta,
     group,
   };
 };
 
 export const formatProductToFhir = (
   product: ProductDto,
-  systems,
+  systems: Array<string>,
 ): R4.IConceptMap => {
   const group: Array<R4.IConceptMap_Group> = [];
   systems.forEach(target => {
@@ -57,8 +65,7 @@ export const formatProductToFhir = (
   });
 
   return {
-    resourceType: 'ConceptMap',
-    status: R4.ConceptMapStatusKind._active,
+    ...conceptMapMeta,
     group,
   };
 };
