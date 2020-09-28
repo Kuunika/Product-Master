@@ -19,6 +19,10 @@ export const getProductsSystems = (products: ProductDto[]): Array<string> => {
     sys = new Set([...sys, ...getProductSystems(prod)]);
   });
 
+  if (sys.size === 0) {
+    throw new Error('no systems in payload');
+  }
+
   return [...sys] as Array<string>;
 };
 
@@ -37,6 +41,8 @@ export const formatProductsToFhir = (
       element: products.map(prod => getElement(prod, target)),
     });
   });
+
+  if (!products.length) return null;
 
   return {
     ...conceptMapMeta,
@@ -64,16 +70,22 @@ export const formatProductToFhir = (
     });
   });
 
+  if (!Object.keys(product).length) return null;
+
   return {
     ...conceptMapMeta,
     group,
   };
 };
 
-const getElement = (
+export const getElement = (
   product: ProductDto,
   system: string,
 ): R4.IConceptMap_Element => {
+  if (!product.mappings || product.mappings.length == 0) {
+    throw new Error('No Mappings');
+  }
+
   return {
     code: product.productCode,
     display: product.productName,
@@ -83,7 +95,7 @@ const getElement = (
   };
 };
 
-const formatTargets = (
+export const formatTargets = (
   mappings: SystemProductDto[],
 ): Array<R4.IConceptMap_Target> => {
   return mappings.map(map => ({
