@@ -1,8 +1,8 @@
 FROM node:12 as building
 WORKDIR /usr/src/app
-COPY ./dist .
 COPY package.json .
 RUN npm install --only=prod
+COPY ./dist .
 
 FROM node:12-alpine
 COPY --from=building /usr/src/app /usr/src/app
