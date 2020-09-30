@@ -1,9 +1,11 @@
-import { Controller, Get, Param, Query, UseInterceptors, CacheInterceptor, BadGatewayException, NotFoundException } from '@nestjs/common';
+import { Controller, Get, Param, Query, UseInterceptors, CacheInterceptor, NotFoundException, InternalServerErrorException } from '@nestjs/common';
 import { ProductQuery } from '../common/interfaces/product-query.interface';
 import { ProductsService } from './products.service';
 import { ProductsQuery } from '../common/interfaces/products-query.interface';
 import { ProductDto } from '../common/dtos/product.dto';
 import { ProductsDto } from '../common/dtos/products.dto';
+import { ProductNotFoundException } from 'src/common/exceptions/product-code-does-not-exist.exception';
+import { ProductNotFoundInSystemException } from 'src/common/exceptions/product-does-not-exist-in-the-specified-system.exception';
 
 @Controller('products')
 @UseInterceptors(CacheInterceptor)
@@ -15,7 +17,7 @@ export class ProductsController {
     try {
       return await this.service.findAll(query);
     } catch (error) {
-      throw new BadGatewayException(error.message);
+      throw new InternalServerErrorException(error.message);
     }
   }
 
@@ -24,7 +26,15 @@ export class ProductsController {
     try {
       return await this.service.findOne(id, query);
     } catch (error) {
-      throw new NotFoundException(error.message);
+      if (error instanceof ProductNotFoundException) {
+        throw new NotFoundException(error.message);
+      }
+
+      if (error instanceof ProductNotFoundInSystemException) {
+        throw new NotFoundException(error.message);
+      }
+
+      throw new InternalServerErrorException(error.message);
     }
   }
 }
