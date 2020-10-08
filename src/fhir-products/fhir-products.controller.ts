@@ -22,7 +22,7 @@ import {
   ApiBadGatewayResponse,
   ApiNotFoundResponse,
 } from '@nestjs/swagger';
-import { FHIRConceptMap } from 'src/common/responses/product.response.dto';
+import { FHIRConceptMap } from 'src/common/responses/fhir-product.response.dto';
 
 @Controller('fhir')
 @ApiTags('fhir products')
