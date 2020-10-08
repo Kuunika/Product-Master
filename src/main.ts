@@ -6,6 +6,8 @@ dotenv.config();
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  const apiRoot = `api/${process.env.PRODUCT_MASTER_API_VERSION}`;
+  const apiPort = process.env.PRODUCT_MASTER_API_PORT || 3000;
   const options = new DocumentBuilder()
     .setTitle('Product Master API Docs')
     .setDescription('REST API documentation for the Product Master')
@@ -13,9 +15,8 @@ async function bootstrap() {
     .addTag('fhir')
     .build();
   const document = SwaggerModule.createDocument(app, options);
-  SwaggerModule.setup('api', app, document);
-
-  app.setGlobalPrefix(`api/${process.env.PRODUCT_MASTER_API_VERSION}`);
-  await app.listen(3000);
+  SwaggerModule.setup(`${apiRoot}/docs`, app, document);
+  app.setGlobalPrefix(apiRoot);
+  await app.listen(apiPort);
 }
 bootstrap();
