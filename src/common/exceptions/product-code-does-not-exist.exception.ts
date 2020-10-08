@@ -1,5 +1,6 @@
 export class ProductNotFoundException extends Error {
-  constructor() {
-    super('Product was not found.');
-  }
+    constructor(message: string) {
+        super(message);
+        Object.setPrototypeOf(this, new.target.prototype);
+    }
 }

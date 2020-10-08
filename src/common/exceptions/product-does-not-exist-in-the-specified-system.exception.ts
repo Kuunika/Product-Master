@@ -1,5 +1,6 @@
 export class ProductNotFoundInSystemException extends Error {
-    constructor() {
-        super('Product was not found in the given system.');
+    constructor(message: string) {
+        super(message);
+        Object.setPrototypeOf(this, new.target.prototype);
     }
 }
