@@ -1,60 +1,43 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty } from "@nestjs/swagger";
 
-export class ConceptMapTarget {
+class SystemProductResponseDto {
   @ApiProperty()
-  code: string;
-
-  @ApiProperty()
-  display: string;
+  systemName: string;
 
   @ApiProperty()
-  equivalence: string;
+  systemProductCode: string;
+
+  @ApiProperty()
+  productName: string;
 }
 
-export class ConceptMapElement {
-  @ApiProperty()
-  code: string;
+export class ProductResponseDto {
+    @ApiProperty()
+    productCode: string;
 
-  @ApiProperty()
-  display: string;
+    @ApiProperty()
+    productName: string;
 
-  @ApiProperty({ isArray: true })
-  target: ConceptMapTarget;
+    @ApiProperty({ isArray: true })
+    mappings: SystemProductResponseDto;
+
+    @ApiProperty()
+    dateCreated: Date;
+
+    @ApiProperty()
+    lastUpdated: Date;
 }
 
-export class ConceptGroup {
+export class ProductsResponseDto {
   @ApiProperty()
-  target: string;
+  page: number;
+
+  @ApiProperty()
+  totalNumberOfPages: number;
+
+  @ApiProperty()
+  totalNumberOfProducts: number;
 
   @ApiProperty({ isArray: true })
-  element: ConceptMapElement;
-}
-
-export class FHIRConceptMap {
-  @ApiProperty()
-  resourceType: string;
-
-  @ApiProperty()
-  name: string;
-
-  @ApiProperty()
-  title: string;
-
-  @ApiProperty()
-  version: string;
-
-  @ApiProperty()
-  status: string;
-
-  @ApiProperty()
-  publisher: string;
-
-  @ApiProperty()
-  source: string;
-
-  @ApiProperty()
-  purpose: string;
-
-  @ApiProperty({ isArray: true })
-  group: ConceptGroup;
+  products: ProductResponseDto
 }

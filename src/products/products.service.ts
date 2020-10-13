@@ -11,7 +11,7 @@ export class ProductsService {
   constructor(private readonly client: OclClient) { }
 
   async findAll(filters: ProductsQuery): Promise<ProductsDto> {
-    const products = await this.client.getProducts(filters.page, filters.pageSize);
+    const products = await this.client.getProducts(filters);
     return toOclProducts(products);
   }
 

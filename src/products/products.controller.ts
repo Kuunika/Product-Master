@@ -6,12 +6,16 @@ import { ProductDto } from '../common/dtos/product.dto';
 import { ProductsDto } from '../common/dtos/products.dto';
 import { ProductNotFoundException } from 'src/common/exceptions/product-code-does-not-exist.exception';
 import { ProductNotFoundInSystemException } from 'src/common/exceptions/product-does-not-exist-in-the-specified-system.exception';
+import { ApiBadGatewayResponse, ApiNotFoundResponse, ApiOkResponse } from '@nestjs/swagger';
+import { ProductsResponseDto } from 'src/common/responses/product.response.dto';
 
 @Controller('products')
 @UseInterceptors(CacheInterceptor)
 export class ProductsController {
   constructor(private readonly service: ProductsService) { }
 
+  @ApiOkResponse({ type: ProductsResponseDto })
+  @ApiBadGatewayResponse()
   @Get()
   async findAll(@Query() query: ProductsQuery): Promise<ProductsDto> {
     try {
@@ -21,6 +25,9 @@ export class ProductsController {
     }
   }
 
+  @ApiOkResponse({ type: ProductsResponseDto })
+  @ApiNotFoundResponse()
+  @ApiBadGatewayResponse()
   @Get(':id')
   async findOne(@Param('id') id: string, @Query() query?: ProductQuery): Promise<ProductDto> {
     try {

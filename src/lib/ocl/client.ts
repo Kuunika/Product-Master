@@ -7,6 +7,7 @@ import { ProductNotFoundException } from '../../common/exceptions/product-code-d
 import { OclClientException } from '../../common/exceptions/ocl-client.exception';
 import { ProductNotFoundInSystemException } from '../../common/exceptions/product-does-not-exist-in-the-specified-system.exception';
 import { AxiosError } from 'axios';
+import { ProductsQuery } from 'src/common/interfaces/products-query.interface';
 
 @Injectable()
 export class OclClient {
@@ -42,10 +43,14 @@ export class OclClient {
         return `sources/${this.masterRepo}/concepts/${code}?includeMappings=true`;
     }
 
-    async getProducts(pageNumber = 1, pageSize = 10): Promise<ListOfOclConcepts> {
+    async getProducts(query: ProductsQuery): Promise<ListOfOclConcepts> {
+        const pageNumber =  query.page || 1;
+        const pageSize = query.pageSize || 10
         try {
             this.logger.debug(`Attempting to list products in OCL.`);
-            const productsFromOcl = await this.axiosClient.get<OclConcept[]>(`/sources/${this.masterRepo}/concepts/?limit=${pageSize}&page=${pageNumber}&includeMappings=true`);
+            const nameQuery = query.name ? `&q=${query.name}` : '';
+            const productsFromOcl = await this.axiosClient.get<OclConcept[]>(`/sources/${this.masterRepo}/concepts/?limit=${pageSize}&page=${pageNumber}${nameQuery}&includeMappings=false`);
+            this.logger.debug(`Able to list products in OCL.`);
             return {
                 concepts: productsFromOcl.data,
                 currentPage: pageNumber,
