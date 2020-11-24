@@ -1,5 +1,7 @@
 # Kuunika - Product Master
 
+[version](https://img.shields.io/github/package-json/v/Kuunika/Product-Master?style=for-the-badge)
+
 [TOC]
 
 ## Background
