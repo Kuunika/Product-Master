@@ -1,30 +1,47 @@
-import { Controller, Get, Param, Query, UseInterceptors, CacheInterceptor, BadGatewayException, NotFoundException } from '@nestjs/common';
+import { Controller, Get, Param, Query, UseInterceptors, CacheInterceptor, NotFoundException, InternalServerErrorException } from '@nestjs/common';
 import { ProductQuery } from '../common/interfaces/product-query.interface';
 import { ProductsService } from './products.service';
 import { ProductsQuery } from '../common/interfaces/products-query.interface';
 import { ProductDto } from '../common/dtos/product.dto';
 import { ProductsDto } from '../common/dtos/products.dto';
+import { ProductNotFoundException } from 'src/common/exceptions/product-code-does-not-exist.exception';
+import { ProductNotFoundInSystemException } from 'src/common/exceptions/product-does-not-exist-in-the-specified-system.exception';
+import { ApiBadGatewayResponse, ApiNotFoundResponse, ApiOkResponse } from '@nestjs/swagger';
+import { ProductsResponseDto } from 'src/common/responses/product.response.dto';
 
 @Controller('products')
 @UseInterceptors(CacheInterceptor)
 export class ProductsController {
   constructor(private readonly service: ProductsService) { }
 
+  @ApiOkResponse({ type: ProductsResponseDto })
+  @ApiBadGatewayResponse()
   @Get()
   async findAll(@Query() query: ProductsQuery): Promise<ProductsDto> {
     try {
       return await this.service.findAll(query);
     } catch (error) {
-      throw new BadGatewayException(error.message);
+      throw new InternalServerErrorException(error.message);
     }
   }
 
+  @ApiOkResponse({ type: ProductsResponseDto })
+  @ApiNotFoundResponse()
+  @ApiBadGatewayResponse()
   @Get(':id')
   async findOne(@Param('id') id: string, @Query() query?: ProductQuery): Promise<ProductDto> {
     try {
       return await this.service.findOne(id, query);
     } catch (error) {
-      throw new NotFoundException(error.message);
+      if (error instanceof ProductNotFoundException) {
+        throw new NotFoundException(error.message);
+      }
+
+      if (error instanceof ProductNotFoundInSystemException) {
+        throw new NotFoundException(error.message);
+      }
+
+      throw new InternalServerErrorException(error.message);
     }
   }
 }

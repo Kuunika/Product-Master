@@ -1,15 +1,38 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { R4 } from '@ahryman40k/ts-fhir-types';
 
-export class FhirProductResponse {
+export class ConceptMapTarget {
+  @ApiProperty()
+  code: string;
+
+  @ApiProperty()
+  display: string;
+
+  @ApiProperty()
+  equivalence: string;
+}
+
+export class ConceptMapElement {
+  @ApiProperty()
+  code: string;
+
+  @ApiProperty()
+  display: string;
+
+  @ApiProperty({ isArray: true })
+  target: ConceptMapTarget;
+}
+
+export class ConceptGroup {
+  @ApiProperty()
+  target: string;
+
+  @ApiProperty({ isArray: true })
+  element: ConceptMapElement;
+}
+
+export class FHIRConceptMap {
   @ApiProperty()
   resourceType: string;
-
-  @ApiProperty()
-  url: string;
-
-  @ApiProperty()
-  version: string;
 
   @ApiProperty()
   name: string;
@@ -18,38 +41,20 @@ export class FhirProductResponse {
   title: string;
 
   @ApiProperty()
+  version: string;
+
+  @ApiProperty()
   status: string;
-
-  @ApiProperty()
-  experimental: boolean;
-
-  @ApiProperty()
-  date: Date;
 
   @ApiProperty()
   publisher: string;
 
   @ApiProperty()
-  contact: R4.IContactDetail;
-
-  @ApiProperty()
-  description: string;
-
-  @ApiProperty()
-  useContext: R4.IUsageContext[];
+  source: string;
 
   @ApiProperty()
   purpose: string;
 
-  @ApiProperty()
-  copyright: string;
-
-  @ApiProperty()
-  source: string;
-
-  @ApiProperty()
-  target: string;
-
-  @ApiProperty()
-  group: R4.IConceptMap_Group[];
+  @ApiProperty({ isArray: true })
+  group: ConceptGroup;
 }

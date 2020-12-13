@@ -1,5 +1,6 @@
 export class OclClientException extends Error {
-    constructor() {
-        super('There was an issue talking to the product master.');
+    constructor(message: string) {
+        super(message);
+        Object.setPrototypeOf(this, new.target.prototype);
     }
 }
