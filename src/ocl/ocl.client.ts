@@ -6,11 +6,13 @@ import { Logger } from 'winston';
 import { OclConcept } from '../common/interfaces/ocl-concept.interface';
 import { apiConfig } from './ocl.config';
 import { ListOfOclConcepts } from '../common/interfaces/list-of-ocl-concepts.interface';
-import { ProductNotFoundException } from '../common/exceptions/product-code-does-not-exist.exception';
-import { OclClientException } from '../common/exceptions/ocl-client.exception';
-import { ProductNotFoundInSystemException } from '../common/exceptions/product-does-not-exist-in-the-specified-system.exception';
 import { ProductsQuery } from 'src/common/interfaces/products-query.interface';
 import { OclMappingsSearchResult } from 'src/common/interfaces/ocl-mappings-search-result';
+import {
+  OclClientException,
+  ProductNotFoundException,
+  ProductNotFoundInSystemException,
+} from '../common/exceptions';
 
 @Injectable()
 export class OCLClient {
@@ -42,7 +44,7 @@ export class OCLClient {
     productCode: string,
     system: string,
   ): Promise<OclConcept> {
-    const url = `https://api.openconceptlab.org/orgs/${this.oclOrg}/sources/${system}/mappings/?q=${productCode}`;
+    const url = this.getSystemMappingUrl(system, productCode);
     try {
       const searchResults = await (
         await this.axiosClient.get<OclMappingsSearchResult[]>(url)
@@ -56,10 +58,13 @@ export class OCLClient {
     }
   }
 
+  private getSystemMappingUrl(system: string, productCode: string) {
+    return `https://api.openconceptlab.org/orgs/${this.oclOrg}/sources/${system}/mappings/?q=${productCode}`;
+  }
+
   private productUrl(code: string): string {
     return `sources/${this.masterRepo}/concepts/${code}?includeMappings=true`;
   }
-
 
   private axiosErrorHandling(
     error: any,
