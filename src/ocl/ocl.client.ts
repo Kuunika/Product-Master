@@ -44,22 +44,22 @@ export class OCLClient {
     productCode: string,
     system: string,
   ): Promise<OclConcept> {
-    const url = this.getSystemMappingUrl(system, productCode);
+    const url = this.getSystemMappingUrl(productCode);
     try {
       const searchResults = await (
         await this.axiosClient.get<OclMappingsSearchResult[]>(url)
       ).data;
       if (searchResults.length === 1) {
         const product = searchResults[0];
-        return this.getProductByCode(product.to_concept_code);
+        return this.getProductByCode(product.from_concept_code);
       }
     } catch (error) {
       this.axiosErrorHandling(error, url, system, productCode);
     }
   }
 
-  private getSystemMappingUrl(system: string, productCode: string) {
-    return `https://api.openconceptlab.org/orgs/${this.oclOrg}/sources/${system}/mappings/?q=${productCode}`;
+  private getSystemMappingUrl(productCode: string) {
+    return `https://api.openconceptlab.org/orgs/${this.oclOrg}/sources/${this.masterRepo}/mappings/?q=${productCode}`;
   }
 
   private productUrl(code: string): string {
