@@ -2,9 +2,9 @@
   "name": "product-master",
   "version": "1.0.1",
   "description": "",
-  "author": "",
+  "author": "Kuunika Project Malawi",
   "private": true,
-  "license": "UNLICENSED",
+  "license": "MIT",
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
