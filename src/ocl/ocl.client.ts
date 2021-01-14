@@ -45,6 +45,7 @@ export class OCLClient {
     system: string,
   ): Promise<OclConcept> {
     const url = this.getSystemMappingUrl(productCode);
+    console.log(url);
     try {
       const searchResults = await (
         await this.axiosClient.get<OclMappingsSearchResult[]>(url)
@@ -59,7 +60,7 @@ export class OCLClient {
   }
 
   private getSystemMappingUrl(productCode: string) {
-    return `https://api.openconceptlab.org/orgs/${this.oclOrg}/sources/${this.masterRepo}/mappings/?q=${productCode}`;
+    return `sources/${this.masterRepo}/mappings/?q=${productCode}`;
   }
 
   private productUrl(code: string): string {
