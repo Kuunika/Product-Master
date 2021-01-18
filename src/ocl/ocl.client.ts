@@ -45,7 +45,6 @@ export class OCLClient {
     system: string,
   ): Promise<OclConcept> {
     const url = this.getSystemMappingUrl(productCode);
-    console.log(url);
     try {
       const searchResults = await (
         await this.axiosClient.get<OclMappingsSearchResult[]>(url)

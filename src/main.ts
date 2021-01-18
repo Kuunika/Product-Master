@@ -17,6 +17,5 @@ async function bootstrap() {
   SwaggerModule.setup(`${apiRoot}/docs`, app, document);
   app.setGlobalPrefix(apiRoot);
   await app.listen(apiPort);
-  console.log(`http://localhost:${apiPort}/${apiRoot}`);
 }
 bootstrap();
