@@ -45,17 +45,23 @@ export class OCLClient {
     system: string,
   ): Promise<OclConcept> {
     const url = this.getSystemMappingUrl(productCode);
+    let searchResults;
     try {
-      const searchResults = await (
+      searchResults = await (
         await this.axiosClient.get<OclMappingsSearchResult[]>(url)
       ).data;
-      if (searchResults.length === 1) {
-        const product = searchResults[0];
-        return this.getProductByCode(product.from_concept_code);
-      }
     } catch (error) {
       this.axiosErrorHandling(error, url, system, productCode);
     }
+
+    if (searchResults.length === 1) {
+      const product = searchResults[0];
+      return this.getProductByCode(product.from_concept_code);
+    }
+
+    throw new ProductNotFoundInSystemException(
+      `Product ${productCode} was not found in ${system}.`,
+    );
   }
 
   private getSystemMappingUrl(productCode: string) {
