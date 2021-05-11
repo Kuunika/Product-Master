@@ -6,13 +6,14 @@ import { OCLClient } from './ocl.client';
 
 @Injectable()
 export class OCLService {
-    constructor(private readonly oclClient: OCLClient) {}
+  constructor(private readonly oclClient: OCLClient) {}
 
-    findProductByCode(code: string, system?: string): Promise<OclConcept> {
-        return this.oclClient.getProductByCode(code, system);
-    }
+  findProductByCode(code: string, system?: string): Promise<OclConcept> {
+    if (system) return this.oclClient.getNonMasterListProduct(code, system);
+    return this.oclClient.getProductByCode(code);
+  }
 
-    findAllProducts(query: ProductsQuery): Promise<ListOfOclConcepts> {
-        return this.oclClient.getProducts(query);
-    }
+  findAllProducts(query: ProductsQuery): Promise<ListOfOclConcepts> {
+    return this.oclClient.getProducts(query);
+  }
 }
