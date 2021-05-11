@@ -49,7 +49,9 @@ Temporary Items
 *.sublime-workspace
 
 #/other
+missing-products.json
 .env
+*.csv
 
 # Runtime data
 pids
