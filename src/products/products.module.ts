@@ -2,6 +2,8 @@ import { Module, CacheModule } from '@nestjs/common';
 import { ProductsController } from './products.controller';
 import { ProductsService } from './products.service';
 import { OCLModule } from 'src/ocl/ocl.module';
+import { LocalProductsService } from './products.local.service';
+import { LocalService } from 'src/local/local.service';
 
 @Module({
   imports: [
@@ -11,7 +13,7 @@ import { OCLModule } from 'src/ocl/ocl.module';
     OCLModule
   ],
   controllers: [ProductsController],
-  providers: [ProductsService],
+  providers: [ProductsService, LocalProductsService, LocalService],
   exports: [ProductsService],
 })
-export class ProductsModule {}
+export class ProductsModule { }

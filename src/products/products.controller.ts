@@ -8,11 +8,12 @@ import { ProductNotFoundException } from 'src/common/exceptions/product-code-doe
 import { ProductNotFoundInSystemException } from 'src/common/exceptions/product-does-not-exist-in-the-specified-system.exception';
 import { ApiBadGatewayResponse, ApiNotFoundResponse, ApiOkResponse } from '@nestjs/swagger';
 import { ProductsResponseDto } from 'src/common/responses/product.response.dto';
+import { LocalProductsService } from './products.local.service';
 
 @Controller('products')
 @UseInterceptors(CacheInterceptor)
 export class ProductsController {
-  constructor(private readonly service: ProductsService) { }
+  constructor(private readonly service: LocalProductsService) { }
 
   @ApiOkResponse({ type: ProductsResponseDto })
   @ApiBadGatewayResponse()
