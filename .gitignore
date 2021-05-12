@@ -49,8 +49,7 @@ Temporary Items
 *.sublime-workspace
 
 #/other
-dhamis.json
-openlmis.json
+src/local-files/*.json
 .env
 *.csv
 

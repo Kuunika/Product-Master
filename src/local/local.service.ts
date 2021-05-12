@@ -15,11 +15,11 @@ export class LocalService {
                 productName: product["Data Element Short Name"],
                 mappings: [{
                     productName: product["Data Element Short Name"],
-                    systemName: 'DHAMIS',
+                    systemName: 'dhamis',
                     systemProductCode: product["Code"]
                 }, {
                     productName: product["Data Element Short Name"],
-                    systemName: 'DHIS2',
+                    systemName: 'dhis2',
                     systemProductCode: product["Data Element ID"]
                 }],
                 dateCreated: new Date(),
@@ -30,11 +30,11 @@ export class LocalService {
                 productName: product["name"],
                 mappings: [{
                     productName: product["name"],
-                    systemName: "OpenLMIS",
+                    systemName: "openlmis",
                     systemProductCode: product["openlmis_code"]
                 }, {
                     productName: product["name"],
-                    systemName: "DHIS2",
+                    systemName: "dhis2",
                     systemProductCode: product["dhis2_code"]
                 }],
                 dateCreated: new Date(),
