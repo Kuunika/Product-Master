@@ -20,7 +20,7 @@ export class ProductsController {
   @Get()
   async findAll(@Query() query: ProductsQuery): Promise<ProductsDto> {
     try {
-      return await this.service.findAll(query);
+      return await this.service.findAll({ ...query, system: query?.system?.toLowerCase() });
     } catch (error) {
       throw new InternalServerErrorException(error.message);
     }
@@ -30,9 +30,9 @@ export class ProductsController {
   @ApiNotFoundResponse()
   @ApiBadGatewayResponse()
   @Get(':id')
-  async findOne(@Param('id') id: string, @Query() query?: ProductQuery): Promise<ProductDto> {
+  async findOne(@Param('id') id: string, @Query('system') system: string): Promise<ProductDto> {
     try {
-      return await this.service.findOne(id, query);
+      return await this.service.findOne(id, { system: system?.toLowerCase() });
     } catch (error) {
       if (error instanceof ProductNotFoundException) {
         throw new NotFoundException(error.message);

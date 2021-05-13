@@ -8,5 +8,5 @@ export class ProductsQuery {
   pageSize?: number;
 
   @ApiProperty({ nullable: true })
-  name?: string;
+  system?: string;
 }

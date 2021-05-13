@@ -14,7 +14,7 @@ export class LocalProductsService {
     async findAll(filters: ProductsQuery): Promise<ProductsDto> {
         const page = filters.page ?? 1;
         const chunkSize = filters.pageSize ?? 10;
-        const system = filters.name;
+        const system = filters.system;
         const products = system ? this.filterProductsBySystem(await this.localService.getProductsFromLocalFiles(), system) : await this.localService.getProductsFromLocalFiles();
         const sections = _.chunk(products, chunkSize);
         const productsDto = {

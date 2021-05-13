@@ -1,3 +1,3 @@
-export interface ProductQuery {
+export class ProductQuery {
   system?: string;
 }

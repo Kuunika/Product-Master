@@ -103,7 +103,7 @@ export class OCLClient {
     const pageSize = query.pageSize || 10;
     try {
       this.logger.info(`Attempting to list products in OCL.`);
-      const nameQuery = query.name ? `&q=${query.name}` : '';
+      const nameQuery = query.system ? `&q=${query.system}` : '';
       const productsFromOcl = await this.axiosClient.get<OclConcept[]>(
         `/sources/${this.masterRepo}/concepts/?limit=${pageSize}&page=${pageNumber}${nameQuery}&includeMappings=false`,
       );
